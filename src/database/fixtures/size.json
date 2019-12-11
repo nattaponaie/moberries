@@ -1,0 +1,47 @@
+[
+  {
+    "size": 0,
+    "product_name": "Margarita",
+    "price": 50
+  },
+  {
+    "size": 1,
+    "product_name": "Margarita",
+    "price": 55
+  },
+  {
+    "size": 2,
+    "product_name": "Margarita",
+    "price": 60
+  },
+  {
+    "size": 0,
+    "product_name": "Marinara",
+    "price": 52
+  },
+  {
+    "size": 1,
+    "product_name": "Marinara",
+    "price": 57
+  },
+  {
+    "size": 2,
+    "product_name": "Marinara",
+    "price": 62
+  },
+  {
+    "size": 0,
+    "product_name": "Salami",
+    "price": 54
+  },
+  {
+    "size": 1,
+    "product_name": "Salami",
+    "price": 59
+  },
+  {
+    "size": 2,
+    "product_name": "Salami",
+    "price": 64
+  }
+]

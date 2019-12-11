@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  moberries-api:
+    build: .
+    image: moberries/api
+    command: 'yarn dev'
+    volumes:
+      - './src:/usr/src/app/src'
+      - './.env:/usr/src/app/.env'
+      - './package.json:/usr/src/app/package.json'
+      - "moberries-node_modules:/usr/src/app/node_modules"
+    ports:
+      - '9000:8080'
+    depends_on: 
+      - moberries-postgres
+    networks:
+      - moberries
+  moberries-postgres:
+    image: postgres:9.6
+    volumes:
+      - "moberries-postgres-db:/var/lib/postgresql/data/pgdata"
+    ports:
+      - "5432:5432"
+    environment:
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+      POSTGRES_USER: "api"
+      POSTGRES_PASSWORD: "api"
+      POSTGRES_DB: "moberries"
+    networks:
+      - moberries
+volumes:
+  moberries-postgres-db:
+  moberries-node_modules:
+networks:
+  moberries:

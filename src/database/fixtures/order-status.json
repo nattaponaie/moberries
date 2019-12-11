@@ -1,0 +1,18 @@
+[
+  {
+    "status": 0,
+    "description": "new"
+  },
+  {
+    "status": 1,
+    "description": "preparing"
+  },
+  {
+    "status": 2,
+    "description": "delivering"
+  },
+  {
+    "status": 3,
+    "description": "delivered"
+  }
+]
