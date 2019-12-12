@@ -14,15 +14,16 @@ const findAll = async () => {
 
 const transformSize = (productSize) => {
   const productSizeList = ['small', 'medium', 'large'];
-  return productSizeList.indexOf(lowerCase(productSize));
+  const productSizeId = productSizeList.indexOf(lowerCase(productSize));
+  if (productSizeId === -1) {
+    throw new InvalidError(ERROR_PRODUCT_SIZE_DOES_NOT_EXIST);
+  }
+  return productSizeId;
 };
 
 const findSizeByProductIdAndSize = async ({ productId, productSize }) => {
   const transformedSize = transformSize(productSize);
-  if (transformedSize === -1) {
-    throw new InvalidError(ERROR_PRODUCT_SIZE_DOES_NOT_EXIST);
-  }
-  return await size.findSizeByProductIdAndSize({ productId, productSize: transformSize(productSize) });
+  return await size.findSizeByProductIdAndSize({ productId, productSize: transformedSize });
 };
 
 export default {
