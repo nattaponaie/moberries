@@ -8,14 +8,21 @@ const transformPaymentType = (type) => {
 
 const createPayment = async ({
   total,
-}) => await payment.create({ total, type: transformPaymentType('pending') });
+  type,
+}) => await payment.create({ total, type: transformPaymentType(type) });
 
 const updateOrderId = async ({
   orderId,
   paymentId,
 }) => await payment.updateOrderId({ orderId, paymentId });
 
+const updateTotal = async ({
+  total,
+  paymentId,
+}) => await payment.updateTotal({ total, paymentId });
+
 export default {
   createPayment,
   updateOrderId,
+  updateTotal,
 };
