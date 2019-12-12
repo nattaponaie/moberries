@@ -11,7 +11,7 @@ const findCustomerById = async ({
 }) => {
   const customerResult = await customer.findOneByCustomerId(customerId);
   if (!customerResult) {
-    throw new NotFoundError(customer.ERROR_CANNOT_FOUND_CUSTOMER);
+    throw new NotFoundError(ERROR_CANNOT_FOUND_CUSTOMER);
   }
   return customerResult;
 };
