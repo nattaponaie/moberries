@@ -48,8 +48,9 @@ module.exports = {
               updatedAt: DateTime.local().toSQL(),
             },
           });
+          const priceId = get(head(priceResult), 'id');
 
-          await models.sizes.update({ priceId: priceResult.id }, {
+          await models.sizes.update({ priceId }, {
             where: {
               id: sizeId,
             },
