@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   order.associate = ((models) => {
   // associations can be defined here
+    order.belongsTo(models.customers, { foreignKey: 'customer_id' } );
   });
   return order;
 };
