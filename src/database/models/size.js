@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   size.associate = function(models) {
     // associations can be defined here
+    size.belongsTo(models.prices, { foreignKey: 'price_id' } );
   };
   return size;
 };
