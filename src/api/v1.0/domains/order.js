@@ -8,13 +8,11 @@ const create = ({
   customerId,
   orderStatusId,
   paymentId,
-}) => {
-  return models.orders.create({
-    customerId,
-    orderStatusId,
-    paymentId,
-  });
-};
+}) => models.orders.create({
+  customerId,
+  orderStatusId,
+  paymentId,
+});
 
 export default {
   findAll,
