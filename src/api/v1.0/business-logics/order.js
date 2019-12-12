@@ -15,16 +15,17 @@ const createOrder = async ({
   productList,
   customerId,
 }) => {
-  const customerResult = await customer.findCustomerById({ customerId });
+  await customer.findCustomerById({ customerId });
 
   const paymentResult = transformSequelizeModel(await payment.createPayment({ type: 'pending' }));
   const paymentId = get(paymentResult, 'id');
 
   const orderStatusResult = transformSequelizeModel(await orderStatus.findStatus({ status: 'new' }));
   const orderStatusId = get(orderStatusResult, 'id');
-  const orderResult = await order.create({ customerId, paymentId, orderStatusId });
   
-  const orderId = get(transformSequelizeModel(orderResult), 'id');
+  const orderResult = transformSequelizeModel(await order.create({ customerId, paymentId, orderStatusId }));
+  const orderId = get(orderResult, 'id');
+
   await payment.updateOrderId({ orderId, paymentId });
 
   let priceSum = 0;
@@ -52,10 +53,20 @@ const createOrder = async ({
 
   await payment.updateTotal({ total: priceSum, paymentId });
   
-  return customerResult;
+  return orderResult;
+};
+
+const updateOrderStatusById = async ({
+  orderId,
+  status,
+}) => {
+  const transformedStatus = orderStatus.transformStatus(status);
+  const orderResult = await order.updateOrderStatusById({ orderId, status: transformedStatus });
+  return orderResult;
 };
 
 export default {
   findAll,
   createOrder,
+  updateOrderStatusById,
 };
