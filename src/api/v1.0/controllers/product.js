@@ -7,31 +7,22 @@ const router = express.Router();
 
 /**
  * @swagger
- * /order/{addressId}:
+ * /products:
  *   get:
- *     summary: "Find person information"
+ *     summary: "Find all products information"
  *     consumes:
  *       - "application/json"
  *     produces:
  *       - "application/json"
  *     tags:
- *       - "Address"
- *
- *     parameters:
- *       - name: "addressId"
- *         in: "path"
- *         description: "The response will be in integer"
- *         required: true
- *         type: "integer"
+ *       - "Product"
  *
  *     responses:
  *       200:
  *         description: OK
- *       401:
- *         description: "Unauthorized - client to proceed re-login"
  */
 router.get(
-  '/product',
+  '/products',
   asyncWrapper(async (_, res) => {
     const result = await product.findAll();
     res.json(result);
