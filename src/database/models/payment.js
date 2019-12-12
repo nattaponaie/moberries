@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     total: DataTypes.DECIMAL(10, 2),
     orderId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'orders',
         key: 'id',
