@@ -1,14 +1,14 @@
 [
   {
-    "name": "Margarita",
+    "name": "margarita",
     "description": "A margarita is a cocktail consisting of tequila, orange liqueur, and lime juice"
   },
   {
-    "name": "Marinara",
+    "name": "marinara",
     "description": "Marinara sauce is a tomato sauce, usually made with tomatoes, garlic, herbs, and onions"
   },
   {
-    "name": "Salami",
+    "name": "salami",
     "description": "Salami is a type of cured sausage consisting of fermented and air-dried meat, typically pork"
   }
 ]
