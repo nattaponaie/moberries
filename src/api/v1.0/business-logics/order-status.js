@@ -1,9 +1,16 @@
 import { lowerCase } from 'lodash';
 import { orderStatus } from '../domains';
+import { InvalidError } from 'utils/error';
+
+const ERRORS_STATUS_NOT_FOUND = 'Order status does not exist';
 
 const transformStatus = (status) => {
   const statusList = ['new', 'preparing', 'delivering', 'delivered'];
-  return statusList.indexOf(lowerCase(status));
+  const statusId = statusList.indexOf(lowerCase(status));
+  if (statusId === -1) {
+    throw new InvalidError(ERRORS_STATUS_NOT_FOUND);
+  }
+  return statusId;
 };
 
 const findStatus = async ({
@@ -15,5 +22,6 @@ const findStatus = async ({
 };
 
 export default {
+  transformStatus,
   findStatus,
 };
