@@ -18,10 +18,6 @@ module.exports = {
       },
       orderStatusId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'order_statuses',
-          key: 'id',
-        },
         field: 'order_status_id',
       },
       paymentId: {
