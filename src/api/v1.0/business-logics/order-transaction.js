@@ -13,9 +13,12 @@ const createOrderTransaction = async ({
   orderId,
   productId,
   sizeId,
-}) => {
+}) => orderTransaction.create({ quantity,
+  orderId,
+  productId,
+  sizeId,
+});
 
-};
 
 export default {
   findAll,
