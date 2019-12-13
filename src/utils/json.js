@@ -1,6 +1,8 @@
+/* eslint-disable camelcase */
+
 import { reduce, camelCase, isArray, map, keys } from 'lodash/fp';
 
-const transformObjectToCamel = obj => reduce(
+export const transformObjectToCamel = obj => reduce(
   (camelCaseObject, key) => {
     camelCaseObject[camelCase(key)] = obj[key];
     return camelCaseObject;
@@ -9,7 +11,7 @@ const transformObjectToCamel = obj => reduce(
   keys(obj),
 );
 
-const transformToCamelCaseKey = (obj) => {
+export const transformToCamelCaseKey = (obj) => {
   if (isArray(obj)) {
     return map(transformObjectToCamel, obj);
   }
