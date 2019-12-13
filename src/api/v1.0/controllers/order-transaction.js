@@ -25,6 +25,22 @@ const router = express.Router();
  *         description: OK
  */
 
+const resource = 'order-transaction';
+
+router.get(
+  '/order-transactions',
+  validate({
+    body: Joi.object().keys({
+      orderId: Joi.number().required(),
+    }),
+  }),
+  asyncWrapper(async (req, res) => {
+    const orderId = get(req.body, 'orderId');
+    const result = await orderTransaction.findAllByOrderId({ orderId });
+    res.json(apiResponse({ resource, response: result }));
+  }),
+);
+
 router.patch(
   '/order-transactions/:id',
   validate({
@@ -43,7 +59,7 @@ router.patch(
     const quantity = get(req.body, 'quantity');
     const productSize = get(req.body, 'size');
     const result = await orderTransaction.updateOrderTransaction({ orderId, orderTransactionId: id, quantity, productSize });
-    res.json(apiResponse({ type: 'order-transaction', response: result }));
+    res.json(apiResponse({ resource, response: result }));
   })
 );
 
