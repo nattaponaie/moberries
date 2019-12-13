@@ -1,15 +1,17 @@
 import models from 'models';
 
-const findAll = () => {
-  return models.orders.findAll();
-};
+const findAll = async () => await models.orders.findAll();
 
-const create = ({
+const findById = async ({
+  id,
+}) => await models.orders.findByPk(id);
+
+const create = async ({
   customerId,
   orderStatusId,
   paymentId,
   transaction,
-}) => models.orders.create({
+}) => await models.orders.create({
   customerId,
   orderStatusId,
   paymentId,
@@ -18,10 +20,11 @@ const create = ({
 const updateOrderStatusById = async ({
   orderId,
   status,
-}) => models.orders.update({ orderStatusId: status }, { where: { id: orderId }, returning: true });
+}) => await models.orders.update({ orderStatusId: status }, { where: { id: orderId }, returning: true });
 
 export default {
   findAll,
   updateOrderStatusById,
   create,
+  findById,
 };
