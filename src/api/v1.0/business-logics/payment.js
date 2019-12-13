@@ -1,10 +1,8 @@
 import { lowerCase } from 'lodash';
 import { payment } from '../domains';
+import { PAYMENT_TYPE } from 'utils/constant';
 
-const transformPaymentType = (type) => {
-  const paymentType = ['pending', 'paid', 'canceled'];
-  return paymentType.indexOf(lowerCase(type));
-};
+const transformPaymentType = (type) => PAYMENT_TYPE.indexOf(lowerCase(type));
 
 const createPayment = async ({
   total,

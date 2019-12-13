@@ -1,6 +1,7 @@
 import { lowerCase } from 'lodash';
 import { size } from '../domains';
 import { InvalidError } from 'utils/error';
+import { PRODUCT_SIZE } from 'utils/constant';
 
 const ERROR_PRODUCT_SIZE_DOES_NOT_EXIST = 'Product size does not exist';
 
@@ -13,8 +14,7 @@ const findAll = async () => {
 };
 
 const transformSize = (productSize) => {
-  const productSizeList = ['small', 'medium', 'large'];
-  const productSizeId = productSizeList.indexOf(lowerCase(productSize));
+  const productSizeId = PRODUCT_SIZE.indexOf(lowerCase(productSize));
   if (productSizeId === -1) {
     throw new InvalidError(ERROR_PRODUCT_SIZE_DOES_NOT_EXIST);
   }

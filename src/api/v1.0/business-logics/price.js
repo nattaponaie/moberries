@@ -1,5 +1,4 @@
 import { get } from 'lodash';
-// import { customer } from '../domains';
 
 const getProductPrice = ({
   sizeResult,
