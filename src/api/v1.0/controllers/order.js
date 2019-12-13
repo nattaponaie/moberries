@@ -4,12 +4,13 @@ import Joi from 'joi';
 import asyncWrapper from 'middleware/async-wrapper';
 
 import { order } from '../business-logics/';
+import { apiResponse } from 'utils/json';
 
 const router = express.Router();
 
 /**
  * @swagger
- * /products:
+ * /orders:
  *   get:
  *     summary: "Find all products information"
  *     consumes:
@@ -28,7 +29,7 @@ router.get(
   '/orders',
   asyncWrapper(async (_, res) => {
     const result = await order.findAll();
-    res.json(result);
+    res.json(apiResponse({ type: 'order', response: result }));
   })
 );
 
@@ -51,15 +52,17 @@ router.post(
       customerId,
     } = req.body;
     const result = await order.createOrder({ productList: product, customerId });
-    res.json(result);
+    res.json(apiResponse({ type: 'order', response: result }));
   })
 );
 
 router.patch(
   '/orders/:id/status',
   validate({
+    params: Joi.object().keys({
+      id: Joi.number().required(),
+    }),
     body: Joi.object().keys({
-      orderId: Joi.number().required(),
       status: Joi.string().required(),
     }),
   }),
@@ -69,7 +72,7 @@ router.patch(
       status,
     } = req.body;
     const result = await order.updateOrderStatusById({ orderId: id, status });
-    res.json(result);
+    res.json(apiResponse({ type: 'order', response: result }));
   })
 );
 
