@@ -14,15 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'order_status_id',
     },
-    paymentId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'payments',
-        key: 'id',
-      },
-      field: 'payment_id',
-    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
