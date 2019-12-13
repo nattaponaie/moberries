@@ -9,20 +9,30 @@ const transformPaymentType = (type) => {
 const createPayment = async ({
   total,
   type,
-}) => await payment.create({ total, type: transformPaymentType(type) });
+  transaction,
+}) => await payment.create({ total, type: transformPaymentType(type), transaction });
 
 const updateOrderId = async ({
   orderId,
   paymentId,
-}) => await payment.updateOrderId({ orderId, paymentId });
+  transaction,
+}) => await payment.updateOrderId({ orderId, paymentId, transaction });
 
 const updateTotal = async ({
   total,
   paymentId,
-}) => await payment.updateTotal({ total, paymentId });
+  transaction,
+}) => await payment.updateTotal({ total, paymentId, transaction });
+
+const calculatePrice = ({
+  x,
+  y,
+  quantity = 1,
+}) => parseFloat(x) + (quantity * parseFloat(y));
 
 export default {
   createPayment,
   updateOrderId,
   updateTotal,
+  calculatePrice,
 };
