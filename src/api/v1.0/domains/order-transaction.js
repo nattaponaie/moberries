@@ -16,7 +16,7 @@ const create = async ({
     paymentId,
   }, { transaction });
 
-const findTransactionByOrderId = async ({
+const findAllByOrderId = async ({
   orderId,
 }) => await models.order_transactions.findAll({
   where: { orderId },
@@ -43,6 +43,6 @@ const updateTransaction = async ({
 
 export default {
   create,
-  findTransactionByOrderId,
+  findAllByOrderId,
   updateTransaction,
 };

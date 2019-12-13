@@ -13,10 +13,10 @@ const ERROR_CANNOT_FOUND_TRANSACTION = {
 
 const ERROR_MISSING_UPDATE_FIELD = 'Quantity or product size field is required';
 
-const findTransactionByOrderId = async ({
+const findAllByOrderId = async ({
   orderId,
 }) => {
-  const result = await orderTransaction.findTransactionByOrderId({ orderId });
+  const result = await orderTransaction.findAllByOrderId({ orderId });
   if (result.length === 0) {
     throw new NotFoundError(ERROR_CANNOT_FOUND_TRANSACTION);
   }
@@ -44,7 +44,7 @@ const updateOrderTransaction = async ({
     deferrable: Sequelize.Deferrable.SET_IMMEDIATE,
   });
   try {
-    const orderTransactionResult = transformSequelizeModel(await findTransactionByOrderId({ orderId }));
+    const orderTransactionResult = transformSequelizeModel(await findAllByOrderId({ orderId }));
 
     let priceSum = 0;
     let paymentId;
@@ -97,4 +97,5 @@ const createOrderTransaction = async ({
 export default {
   updateOrderTransaction,
   createOrderTransaction,
+  findAllByOrderId,
 };
