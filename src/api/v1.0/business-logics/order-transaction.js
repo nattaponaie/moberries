@@ -98,4 +98,5 @@ export default {
   updateOrderTransaction,
   createOrderTransaction,
   findAllByOrderId,
+  ERROR_MISSING_UPDATE_FIELD,
 };
