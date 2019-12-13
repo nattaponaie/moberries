@@ -11,12 +11,34 @@ const ERROR_CANNOT_FOUND_ORDER = {
   message: 'Order id does not exist.',
 };
 
+const ERROR_ORDER_CANNOT_BE_UPDATED = {
+  status: 402,
+  message: 'This order has been delivered already',
+};
+
 const findAll = async () => {
   try {
     return order.findAll();
   } catch (err) {
     throw err;
   }
+};
+
+const isOrderUpdatable = async ({
+  orderId,
+}) => {
+  const orderResult = transformSequelizeModel(await order.findById({ id: orderId }));
+  if (!orderResult) {
+    throw new NotFoundError(ERROR_CANNOT_FOUND_ORDER);
+  }
+  const statusId = get(orderResult, 'orderStatusId');
+  const orderStatusResult = transformSequelizeModel(await orderStatus.findStatusById({ id: statusId }));
+  const status = get(orderStatusResult, 'status');
+  const transformedStatus = orderStatus.transformStatusToName(status);
+  if (transformedStatus === 'delivering' || transformedStatus === 'delivered') {
+    return false;
+  } return true;
+  
 };
 
 const createOrder = async ({
@@ -35,8 +57,8 @@ const createOrder = async ({
     const paymentResult = transformSequelizeModel(await payment.createPayment({ type: 'pending', transaction }));
     const paymentId = get(paymentResult, 'id');
 
-    const orderStatusResult = transformSequelizeModel(await orderStatus.findStatus({ status: 'new' }));
-    const orderStatusId = get(orderStatusResult, 'status');
+    const orderStatusResult = transformSequelizeModel(await orderStatus.findStatusByName({ status: 'new' }));
+    const orderStatusId = get(orderStatusResult, 'id');
     
     const orderResult = transformSequelizeModel(await order.create({ customerId, paymentId, orderStatusId, transaction }));
     const orderId = get(orderResult, 'id');
@@ -80,13 +102,12 @@ const updateOrderStatusById = async ({
   orderId,
   status,
 }) => {
-  const transformedStatus = orderStatus.transformStatus(status);
+  const transformedStatus = orderStatus.transformStatusToId(status);
   const orderResult = await order.updateOrderStatusById({ orderId, status: transformedStatus });
   const success = head(orderResult);
   if (success === 0) {
     throw new NotFoundError(ERROR_CANNOT_FOUND_ORDER);
   }
-  
   return orderResult;
 };
 
@@ -94,4 +115,6 @@ export default {
   findAll,
   createOrder,
   updateOrderStatusById,
+  isOrderUpdatable,
+  ERROR_ORDER_CANNOT_BE_UPDATED,
 };
