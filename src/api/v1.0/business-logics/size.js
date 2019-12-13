@@ -21,6 +21,10 @@ const transformSize = (productSize) => {
   return productSizeId;
 };
 
+const findSizeByProductIdAndSizeId = async ({ productId, sizeId }) => {
+  return await size.findSizeByProductIdAndSizeId({ productId, sizeId });
+};
+
 const findSizeByProductIdAndSize = async ({ productId, productSize }) => {
   const transformedSize = transformSize(productSize);
   return await size.findSizeByProductIdAndSize({ productId, productSize: transformedSize });
@@ -29,4 +33,5 @@ const findSizeByProductIdAndSize = async ({ productId, productSize }) => {
 export default {
   findAll,
   findSizeByProductIdAndSize,
+  findSizeByProductIdAndSizeId,
 };

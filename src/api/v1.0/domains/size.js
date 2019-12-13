@@ -20,7 +20,24 @@ const findSizeByProductIdAndSize = ({
   });
 };
 
+const findSizeByProductIdAndSizeId = ({
+  productId,
+  sizeId,
+}) => {
+  const include = [{
+    model: models.prices,
+  }];
+  return models.sizes.findOne({
+    where: {
+      id: sizeId,
+      productId,
+    },
+    include,
+  });
+};
+
 export default {
   findAll,
   findSizeByProductIdAndSize,
+  findSizeByProductIdAndSizeId,
 };
