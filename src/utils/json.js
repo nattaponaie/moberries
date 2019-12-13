@@ -17,3 +17,10 @@ const transformToCamelCaseKey = (obj) => {
 };
 
 export const transformSequelizeModel = sequelizeModel => transformToCamelCaseKey(JSON.parse(JSON.stringify(sequelizeModel)));
+
+export const apiResponse = ({ type = '', response }) => {
+  return {
+    type: type,
+    attributes: response,
+  };
+};
