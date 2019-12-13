@@ -8,11 +8,12 @@ const create = ({
   customerId,
   orderStatusId,
   paymentId,
+  transaction,
 }) => models.orders.create({
   customerId,
   orderStatusId,
   paymentId,
-});
+}, { transaction });
 
 const updateOrderStatusById = async ({
   orderId,
