@@ -20,14 +20,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         field: 'order_status_id',
       },
-      paymentId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'payments',
-          key: 'id',
-        },
-        field: 'payment_id',
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
