@@ -5,13 +5,7 @@ import { PRODUCT_SIZE } from 'utils/constant';
 
 const ERROR_PRODUCT_SIZE_DOES_NOT_EXIST = 'Product size does not exist';
 
-const findAll = async () => {
-  try {
-    return size.findAll();
-  } catch (err) {
-    throw err;
-  }
-};
+const findAll = async () => size.findAll();
 
 const transformSize = (productSize) => {
   const productSizeId = PRODUCT_SIZE.indexOf(lowerCase(productSize));
