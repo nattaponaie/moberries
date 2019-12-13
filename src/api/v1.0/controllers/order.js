@@ -33,6 +33,20 @@ router.get(
   })
 );
 
+router.get(
+  '/orders/:id',
+  validate({
+    params: Joi.object().keys({
+      id: Joi.number().required(),
+    }),
+  }),
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params || {};
+    const result = await order.findOrderById({ id });
+    res.json(apiResponse({ type: 'order', response: result }));
+  })
+);
+
 router.post(
   '/orders',
   validate({

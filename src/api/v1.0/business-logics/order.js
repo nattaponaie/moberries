@@ -16,12 +16,14 @@ const ERROR_ORDER_CANNOT_BE_UPDATED = {
   message: 'This order has been delivered already',
 };
 
-const findAll = async () => {
-  try {
-    return order.findAll();
-  } catch (err) {
-    throw err;
+const findAll = async () => await order.findAll();
+
+const findOrderById = async ({ id }) => {
+  const orderResult = await order.findById({ id });
+  if (!orderResult) {
+    throw new NotFoundError(ERROR_CANNOT_FOUND_ORDER);
   }
+  return orderResult;
 };
 
 const isOrderUpdatable = async ({
@@ -118,4 +120,5 @@ export default {
   updateOrderStatusById,
   isOrderUpdatable,
   ERROR_ORDER_CANNOT_BE_UPDATED,
+  findOrderById,
 };
