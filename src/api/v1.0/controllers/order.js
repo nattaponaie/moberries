@@ -25,11 +25,13 @@ const router = express.Router();
  *         description: OK
  */
 
+const resource = 'order';
+
 router.get(
   '/orders',
   asyncWrapper(async (_, res) => {
     const result = await order.findAll();
-    res.json(apiResponse({ type: 'order', response: result }));
+    res.json(apiResponse({ resource, response: result }));
   })
 );
 
@@ -43,7 +45,7 @@ router.get(
   asyncWrapper(async (req, res) => {
     const { id } = req.params || {};
     const result = await order.findOrderById({ id });
-    res.json(apiResponse({ type: 'order', response: result }));
+    res.json(apiResponse({ resource, response: result }));
   })
 );
 
@@ -66,7 +68,7 @@ router.post(
       customerId,
     } = req.body;
     const result = await order.createOrder({ productList: product, customerId });
-    res.json(apiResponse({ type: 'order', response: result }));
+    res.json(apiResponse({ resource, response: result }));
   })
 );
 
@@ -86,7 +88,7 @@ router.patch(
       status,
     } = req.body;
     const result = await order.updateOrderStatusById({ orderId: id, status });
-    res.json(apiResponse({ type: 'order', response: result }));
+    res.json(apiResponse({ resource, response: result }));
   })
 );
 
