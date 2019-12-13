@@ -3,7 +3,7 @@ import { NotFoundError } from 'utils/error';
 
 const ERROR_CANNOT_FOUND_CUSTOMER = {
   model: 'customer',
-  message: 'Customer id does not exist.',
+  message: 'Customer id does not exist',
 };
 
 const findCustomerById = async ({
