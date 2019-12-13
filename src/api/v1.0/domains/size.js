@@ -4,14 +4,14 @@ const findAll = () => {
   return models.sizes.findAll();
 };
 
-const findSizeByProductIdAndSize = ({
+const findSizeByProductIdAndSize = async ({
   productId,
   productSize,
 }) => {
   const include = [{
     model: models.prices,
   }];
-  return models.sizes.findOne({
+  return await models.sizes.findOne({
     where: {
       productId,
       size: productSize,
@@ -20,14 +20,14 @@ const findSizeByProductIdAndSize = ({
   });
 };
 
-const findSizeByProductIdAndSizeId = ({
+const findSizeByProductIdAndSizeId = async ({
   productId,
   sizeId,
 }) => {
   const include = [{
     model: models.prices,
   }];
-  return models.sizes.findOne({
+  return await models.sizes.findOne({
     where: {
       id: sizeId,
       productId,

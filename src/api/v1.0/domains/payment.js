@@ -1,11 +1,11 @@
 import models from 'models';
 
-const create = ({ total = 0, type = 0, transaction }) => models.payments.create({
+const create = async ({ total = 0, type = 0, transaction }) => await models.payments.create({
   type,
   total: parseFloat(total).toFixed(2),
 }, { transaction });
 
-const updateOrderId = ({ orderId, paymentId, transaction }) => models.payments.update({ orderId },
+const updateOrderId = async ({ orderId, paymentId, transaction }) => await models.payments.update({ orderId },
   {
     where: {
       id: paymentId,
@@ -17,7 +17,7 @@ const updateTotal = async ({
   total,
   paymentId,
   transaction,
-}) => models.payments.update({ total: parseFloat(total).toFixed(2) },
+}) => await models.payments.update({ total: parseFloat(total).toFixed(2) },
   { where: {
     id: paymentId,
   }, transaction });

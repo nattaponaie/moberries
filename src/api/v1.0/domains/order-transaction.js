@@ -8,7 +8,7 @@ const create = async ({
   transaction,
   paymentId,
 }) =>
-  models.order_transactions.create({
+  await models.order_transactions.create({
     quantity,
     orderId,
     productId,
@@ -16,9 +16,9 @@ const create = async ({
     paymentId,
   }, { transaction });
 
-const findTransactionByOrderId = ({
+const findTransactionByOrderId = async ({
   orderId,
-}) => models.order_transactions.findAll({
+}) => await models.order_transactions.findAll({
   where: { orderId },
   include: [
     {
@@ -27,17 +27,18 @@ const findTransactionByOrderId = ({
   ],
 });
 
-const updateTransaction = ({
+const updateTransaction = async ({
   id,
   quantity,
   sizeId,
   orderId,
-}) => models.order_transactions.update({ quantity, sizeId, orderId },
+  transaction,
+}) => await models.order_transactions.update({ quantity, sizeId, orderId },
   {
     where: {
       id,
     },
-  });
+  }, { transaction });
 
 
 export default {
