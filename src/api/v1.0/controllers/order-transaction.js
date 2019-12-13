@@ -10,19 +10,56 @@ const router = express.Router();
 
 /**
  * @swagger
- * /order-transactions/:id:
+ * /order-transactions:
  *   get:
- *     summary: "Find all products information"
+ *     summary: "Find all order transaction information"
  *     consumes:
  *       - "application/json"
  *     produces:
  *       - "application/json"
  *     tags:
- *       - "Product"
+ *       - "Order Transaction"
  *
  *     responses:
  *       200:
  *         description: OK
+ *
+ * /order-transactions/{orderTransactionId}:
+ *   patch:
+ *     tags:
+ *     - "Order Transaction"
+ *     summary: "Update either product size and quantity by order ID"
+ *     description: "Returns a updated order"
+ *     produces:
+ *     - "application/xml"
+ *     - "application/json"
+ *     parameters:
+ *     - name: "orderTransactionId"
+ *       in: "params"
+ *       description: "ID of order transaction"
+ *       required: true
+ *       type: "integer"
+ *       format: "int64"
+ *     - name: "body"
+ *       in: "body"
+ *       description: "Field to update"
+ *       required: false
+ *       type: "object"
+ *       properties:
+ *        orderId:
+ *         type: "integer"
+ *         format: "int64"
+ *        quantity:
+ *         type: "integer"
+ *         format: "int64"
+ *        size:
+ *         type: "string"
+ *         example: "small, medium, large"
+ *     responses:
+ *       200:
+ *         description: "successful operation"
+ *       404:
+ *         description: "orderTransactionId not found"
  */
 
 const resource = 'order-transaction';

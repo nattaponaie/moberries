@@ -19,11 +19,124 @@ const router = express.Router();
  *     produces:
  *       - "application/json"
  *     tags:
- *       - "Product"
- *
+ *       - "Order"
+ *     parameters:
+ *     - name: "status"
+ *       in: "query"
+ *       description: "Order status values that need to be considered for filter"
+ *       required: false
+ *       type: "array"
+ *       items:
+ *         type: "string"
+ *         enum:
+ *         - "new"
+ *         - "preparing"
+ *         - "delivering"
+ *         - "delivered"
+ *         - "removed"
+ *     - name: "customerId"
+ *       in: "query"
+ *       description: "Customer ID values that need to be considered for filter"
+ *       required: false
+ *       type: "number"
  *     responses:
  *       200:
- *         description: OK
+ *         description: "successful operation"
+ *   post:
+ *     tags:
+ *     - "Order"
+ *     summary: "Create new order"
+ *     description: "Returns a single order that created"
+ *     produces:
+ *     - "application/xml"
+ *     - "application/json"
+ *     parameters:
+ *     - name: "body"
+ *       in: "body"
+ *       description: "Order to create"
+ *       required: true
+ *       schema:
+ *        $ref: "#/definitions/Order"
+ *     responses:
+ *       200:
+ *         description: "successful operation"
+ *
+ * /orders/{orderId}:
+ *   get:
+ *     tags:
+ *     - "Order"
+ *     summary: "Find order by ID"
+ *     description: "Returns a single order"
+ *     produces:
+ *     - "application/xml"
+ *     - "application/json"
+ *     parameters:
+ *     - name: "orderId"
+ *       in: "params"
+ *       description: "ID of order return"
+ *       required: true
+ *       type: "integer"
+ *       format: "int64"
+ *     responses:
+ *       200:
+ *         description: "successful operation"
+ *       404:
+ *         description: "Order not found"
+ *
+ * /orders/{orderId}/status:
+ *   patch:
+ *     tags:
+ *     - "Order"
+ *     summary: "Update order status by ID"
+ *     description: "Returns a updated order"
+ *     produces:
+ *     - "application/xml"
+ *     - "application/json"
+ *     parameters:
+ *     - name: "orderId"
+ *       in: "params"
+ *       description: "ID of order return"
+ *       required: true
+ *       type: "integer"
+ *       format: "int64"
+ *     - name: "body"
+ *       in: "body"
+ *       description: "Order to create"
+ *       required: true
+ *       type: "object"
+ *       properties:
+ *        status:
+ *         type: "string"
+ *         example: "delivered"
+ *     responses:
+ *       200:
+ *         description: "successful operation"
+ *       404:
+ *         description: "Order not found"
+ *
+ * definitions:
+ *  Order:
+ *   type: "object"
+ *   properties:
+ *    customerId:
+ *     type: "integer"
+ *     format: "int64"
+ *    product:
+ *     type: "array"
+ *     xml:
+ *      name: "product"
+ *      wrapped: true
+ *     items:
+ *      type: "object"
+ *      properties:
+ *       name:
+ *        type: "string"
+ *        example: "margarita"
+ *       quantity:
+ *        type: "integer"
+ *        format: "int64"
+ *   xml:
+ *    name: "Order"
  */
 
 const resource = 'order';
