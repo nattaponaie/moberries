@@ -1,11 +1,14 @@
 import models from 'models';
 
-const findOneByStatus = statusId => models.order_statuses.findOne({
+const findOneByStatus = async statusId => await models.order_statuses.findOne({
   where: {
     status: statusId,
   },
 });
 
+const findById = async id => await models.order_statuses.findByPk(id);
+
 export default {
   findOneByStatus,
+  findById,
 };
