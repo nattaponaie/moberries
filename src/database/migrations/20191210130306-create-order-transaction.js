@@ -29,11 +29,15 @@ module.exports = {
       },
       sizeId: {
         type: Sequelize.INTEGER,
+        field: 'size_id',
+      },
+      paymentId: {
+        type: Sequelize.INTEGER,
         references: {
-          model: 'sizes',
+          model: 'payments',
           key: 'id',
         },
-        field: 'size_id',
+        field: 'payment_id',
       },
       createdAt: {
         allowNull: false,
