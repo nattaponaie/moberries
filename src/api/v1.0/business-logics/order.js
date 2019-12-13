@@ -102,8 +102,9 @@ const updateOrderStatusById = async ({
   orderId,
   status,
 }) => {
-  const transformedStatus = orderStatus.transformStatusToId(status);
-  const orderResult = await order.updateOrderStatusById({ orderId, status: transformedStatus });
+  const orderStatusResult = transformSequelizeModel(await orderStatus.findStatusByName({ status }));
+  const orderStatusId = get(orderStatusResult, 'id');
+  const orderResult = await order.updateOrderStatusById({ orderId, statusId: orderStatusId });
   const success = head(orderResult);
   if (success === 0) {
     throw new NotFoundError(ERROR_CANNOT_FOUND_ORDER);
