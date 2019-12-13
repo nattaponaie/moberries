@@ -36,7 +36,7 @@ const createOrder = async ({
     const paymentId = get(paymentResult, 'id');
 
     const orderStatusResult = transformSequelizeModel(await orderStatus.findStatus({ status: 'new' }));
-    const orderStatusId = get(orderStatusResult, 'id');
+    const orderStatusId = get(orderStatusResult, 'status');
     
     const orderResult = transformSequelizeModel(await order.create({ customerId, paymentId, orderStatusId, transaction }));
     const orderId = get(orderResult, 'id');
@@ -63,7 +63,7 @@ const createOrder = async ({
           });
 
           const productPrice = price.getProductPrice({ sizeResult });
-          priceSum = payment.calculatePrice({ x: priceSum, y: productPrice });
+          priceSum = payment.calculatePrice({ x: priceSum, y: productPrice, quantity });
         }
       }),
     );
