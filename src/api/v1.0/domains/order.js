@@ -1,6 +1,24 @@
+/* eslint-disable camelcase */
+
 import models from 'models';
 
-const findAll = async () => await models.orders.findAll();
+const findAll = async ({
+  customerId,
+  orderStatusId,
+}) => {
+  const where = [];
+  if (customerId || orderStatusId) {
+    if (orderStatusId) {
+      where.push({ order_status_id: orderStatusId });
+    }
+    if (customerId) {
+      where.push({ customer_id: customerId });
+    }
+  }
+  return await models.orders.findAll({
+    where,
+  });
+};
 
 const findById = async ({
   id,

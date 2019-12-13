@@ -1,5 +1,6 @@
 import express from 'express';
 import validate from 'express-validation';
+import { get } from 'lodash';
 import Joi from 'joi';
 import asyncWrapper from 'middleware/async-wrapper';
 
@@ -29,8 +30,16 @@ const resource = 'order';
 
 router.get(
   '/orders',
-  asyncWrapper(async (_, res) => {
-    const result = await order.findAll();
+  validate({
+    query: Joi.object().keys({
+      customer: Joi.string(),
+      status: Joi.string(),
+    }),
+  }),
+  asyncWrapper(async (req, res) => {
+    const customer = get(req.query, 'customer');
+    const status = get(req.query, 'status');
+    const result = await order.findAll({ customerId: customer, statusName: status });
     res.json(apiResponse({ resource, response: result }));
   })
 );

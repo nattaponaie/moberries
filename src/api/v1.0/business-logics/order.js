@@ -16,7 +16,17 @@ const ERROR_ORDER_CANNOT_BE_UPDATED = {
   message: 'This order has been delivered already',
 };
 
-const findAll = async () => await order.findAll();
+const findAll = async ({
+  customerId,
+  statusName,
+}) => {
+  let orderStatusId;
+  if (statusName) {
+    const orderStatusResult = transformSequelizeModel(await orderStatus.findStatusByName({ status: statusName }));
+    orderStatusId = get(orderStatusResult, 'id');
+  }
+  return await order.findAll({ customerId, orderStatusId });
+};
 
 const findOrderById = async ({ id }) => {
   const orderResult = await order.findById({ id });
