@@ -19,8 +19,8 @@ const create = async ({
 
 const updateOrderStatusById = async ({
   orderId,
-  status,
-}) => await models.orders.update({ orderStatusId: status }, { where: { id: orderId }, returning: true });
+  statusId,
+}) => await models.orders.update({ orderStatusId: statusId }, { where: { id: orderId }, returning: true });
 
 export default {
   findAll,
