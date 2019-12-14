@@ -29,9 +29,9 @@ const create = async ({ productList }) => {
 
       const sizeUpdateResult = transformSequelizeModel(await size.updatePriceIdById({ id: sizeId, priceId }));
       return {
-        productResult,
-        sizeUpdateResult,
-        priceResult,
+        product: productResult,
+        size: sizeUpdateResult,
+        price: priceResult,
       };
     }
     return {
@@ -46,4 +46,5 @@ export default {
   findAll,
   findProductByName,
   create,
+  ERROR_PRODUCT_ALREADY_EXISTS,
 };
