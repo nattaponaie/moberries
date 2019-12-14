@@ -42,9 +42,9 @@ docker-compose up moberries-api
 
 ## Database
 
-A database will be running when moberries-api image is up.
+A database will be running when moberries-api container is up.
 
-Or you can remove the following line out from docker-compose file
+Or you want to run database separately, please remove the following line out from docker-compose file
 ```bash
 depends_on: 
    - moberries-postgres
