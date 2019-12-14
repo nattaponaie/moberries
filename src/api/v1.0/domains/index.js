@@ -5,6 +5,8 @@ import orderTransaction from './order-transaction';
 import customer from './customer';
 import size from './size';
 import payment from './payment';
+import personAddress from './person-address';
+import person from './person';
 
 export {
   product,
@@ -14,4 +16,6 @@ export {
   size,
   orderStatus,
   payment,
+  personAddress,
+  person,
 };
