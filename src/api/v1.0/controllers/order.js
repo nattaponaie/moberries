@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import Joi from 'joi';
 import asyncWrapper from 'middleware/async-wrapper';
 
-import { order } from '../business-logics/';
+import { order } from 'api/v1.0/business-logics';
 import { apiResponse } from 'utils/json';
 
 const router = express.Router();

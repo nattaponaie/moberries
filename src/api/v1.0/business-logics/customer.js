@@ -2,8 +2,8 @@ import Sequelize from 'sequelize';
 import { get } from 'lodash';
 
 import models from 'models';
-import { customer } from '../domains';
-import { personAddress, person } from '../business-logics';
+import { customer } from 'api/v1.0/domains';
+import { personAddress, person } from 'api/v1.0/business-logics';
 import { NotFoundError } from 'utils/error';
 import { transformSequelizeModel } from 'utils/json';
 

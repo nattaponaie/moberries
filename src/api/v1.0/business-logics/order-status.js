@@ -1,5 +1,5 @@
 import { lowerCase } from 'lodash';
-import { orderStatus } from '../domains';
+import { orderStatus } from 'api/v1.0/domains';
 import { InvalidError } from 'utils/error';
 import { ORDER_STATUS } from 'utils/constant';
 

@@ -4,7 +4,7 @@ import Joi from 'joi';
 
 import asyncWrapper from 'middleware/async-wrapper';
 import { apiResponse } from 'utils/json';
-import { customer } from '../business-logics/';
+import { customer } from 'api/v1.0/business-logics';
 
 const router = express.Router();
 const resource = 'customer';

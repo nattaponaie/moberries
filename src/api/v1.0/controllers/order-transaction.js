@@ -3,7 +3,7 @@ import validate from 'express-validation';
 import Joi from 'joi';
 import { get } from 'lodash';
 import asyncWrapper from 'middleware/async-wrapper';
-import { orderTransaction } from '../business-logics/';
+import { orderTransaction } from 'api/v1.0/business-logics';
 import { apiResponse } from 'utils/json';
 
 const router = express.Router();

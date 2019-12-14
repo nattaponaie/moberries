@@ -1,5 +1,5 @@
 import { lowerCase } from 'lodash';
-import { size } from '../domains';
+import { size } from 'api/v1.0/domains';
 import { InvalidError } from 'utils/error';
 import { PRODUCT_SIZE } from 'utils/constant';
 

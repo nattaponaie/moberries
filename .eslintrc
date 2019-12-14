@@ -17,7 +17,8 @@
           "utils": "./src/utils",
           "models": "./src/database/models",
           "configs": "./src/configs",
-          "middleware": "./src/routes/middleware"
+          "middleware": "./src/routes/middleware",
+          "api": "./src/api"
         }
       }
     }

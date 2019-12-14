@@ -1,4 +1,4 @@
-import { person } from '../domains';
+import { person } from 'api/v1.0/domains';
 
 const create = async ({
   firstName,

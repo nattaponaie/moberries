@@ -1,4 +1,4 @@
-import { personAddress } from '../domains';
+import { personAddress } from 'api/v1.0/domains';
 
 const create = async ({
   streetAddress,

@@ -1,7 +1,7 @@
 import express from 'express';
 import asyncWrapper from 'middleware/async-wrapper';
 
-import { product } from '../business-logics/';
+import { product } from 'api/v1.0/business-logics';
 import { apiResponse } from 'utils/json';
 
 const router = express.Router();

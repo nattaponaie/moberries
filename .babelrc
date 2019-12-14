@@ -21,7 +21,8 @@
           "configs": "./src/configs",
           "utils": "./src/utils",
           "models": "./src/database/models",
-          "middleware": "./src/api/middleware"
+          "middleware": "./src/api/middleware",
+          "api": "./src/api"
         }
       }
     ]

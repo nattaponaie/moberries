@@ -1,5 +1,5 @@
 import { lowerCase } from 'lodash';
-import { payment } from '../domains';
+import { payment } from 'api/v1.0/domains';
 import { PAYMENT_TYPE } from 'utils/constant';
 
 const transformPaymentType = (type) => PAYMENT_TYPE.indexOf(lowerCase(type));

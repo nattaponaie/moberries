@@ -1,4 +1,4 @@
-import { product } from '../domains';
+import { product } from 'api/v1.0/domains';
 import { lowerCase } from 'lodash';
 
 const findAll = async () => product.findAll();
