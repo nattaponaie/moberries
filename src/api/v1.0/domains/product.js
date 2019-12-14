@@ -10,7 +10,16 @@ const findProductByName = async ({
   },
 });
 
+const create = async ({
+  name,
+  description,
+}) => await models.products.create({
+  name,
+  description,
+});
+
 export default {
   findAll,
   findProductByName,
+  create,
 };

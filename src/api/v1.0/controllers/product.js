@@ -1,6 +1,9 @@
 import express from 'express';
-import asyncWrapper from 'middleware/async-wrapper';
+import validate from 'express-validation';
+import Joi from 'joi';
+import { get } from 'lodash';
 
+import asyncWrapper from 'middleware/async-wrapper';
 import { product } from 'api/v1.0/business-logics';
 import { apiResponse } from 'utils/json';
 
@@ -23,10 +26,32 @@ const resource = 'product';
  *       200:
  *         description: OK
  */
+
 router.get(
   '/products',
   asyncWrapper(async (_, res) => {
     const result = await product.findAll();
+    res.json(apiResponse({ resource, response: result }));
+  })
+);
+
+router.post(
+  '/products',
+  validate({
+    body: Joi.object().keys({
+      product: Joi.array().items(
+        Joi.object({
+          name: Joi.string().required(),
+          size: Joi.string().required(),
+          price: Joi.number().required(),
+          description: Joi.string().required(),
+        })
+      ),
+    }),
+  }),
+  asyncWrapper(async (req, res) => {
+    const productList = get(req, ['body', 'product']);
+    const result = await product.create({ productList });
     res.json(apiResponse({ resource, response: result }));
   })
 );
