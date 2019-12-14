@@ -4,7 +4,8 @@ services:
   moberries-api:
     build: .
     image: moberries/api
-    command: 'yarn dev'
+    command: >
+      bash -c 'yarn install && yarn db:migrate && yarn db:seed:all && yarn dev'
     volumes:
       - './src:/usr/src/app/src'
       - './.env:/usr/src/app/.env'
