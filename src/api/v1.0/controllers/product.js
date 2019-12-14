@@ -2,8 +2,10 @@ import express from 'express';
 import asyncWrapper from 'middleware/async-wrapper';
 
 import { product } from '../business-logics/';
+import { apiResponse } from 'utils/json';
 
 const router = express.Router();
+const resource = 'product';
 
 /**
  * @swagger
@@ -25,7 +27,7 @@ router.get(
   '/products',
   asyncWrapper(async (_, res) => {
     const result = await product.findAll();
-    res.json(result);
+    res.json(apiResponse({ resource, response: result }));
   })
 );
 
