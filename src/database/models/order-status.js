@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'updated_at',
     },
   }, {});
-  orderStatus.associate = function(models) {
+  orderStatus.associate = () => {
     // associations can be defined here
   };
   return orderStatus;

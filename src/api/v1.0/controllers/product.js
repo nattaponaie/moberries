@@ -1,40 +1,58 @@
 import express from 'express';
-import asyncWrapper from 'middleware/async-wrapper';
+import validate from 'express-validation';
+import Joi from 'joi';
+import { get } from 'lodash';
 
-import { product } from '../business-logics/';
+import asyncWrapper from 'middleware/async-wrapper';
+import { product } from 'api/v1.0/business-logics';
+import { apiResponse } from 'utils/json';
 
 const router = express.Router();
+const resource = 'product';
 
 /**
  * @swagger
- * /order/{addressId}:
+ * /products:
  *   get:
- *     summary: "Find person information"
+ *     summary: "Find all products information"
  *     consumes:
  *       - "application/json"
  *     produces:
  *       - "application/json"
  *     tags:
- *       - "Address"
- *
- *     parameters:
- *       - name: "addressId"
- *         in: "path"
- *         description: "The response will be in integer"
- *         required: true
- *         type: "integer"
+ *       - "Product"
  *
  *     responses:
  *       200:
  *         description: OK
- *       401:
- *         description: "Unauthorized - client to proceed re-login"
  */
+
 router.get(
-  '/product',
+  '/products',
   asyncWrapper(async (_, res) => {
     const result = await product.findAll();
-    res.json(result);
+    res.json(apiResponse({ resource, response: result }));
+  })
+);
+
+router.post(
+  '/products',
+  validate({
+    body: Joi.object().keys({
+      product: Joi.array().items(
+        Joi.object({
+          name: Joi.string().required(),
+          size: Joi.string().required(),
+          price: Joi.number().required(),
+          description: Joi.string().required(),
+        })
+      ),
+    }),
+  }),
+  asyncWrapper(async (req, res) => {
+    const productList = get(req, ['body', 'product']);
+    const result = await product.create({ productList });
+    res.json(apiResponse({ resource, response: result }));
   })
 );
 

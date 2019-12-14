@@ -5,6 +5,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       field: 'first_name',
     },
+    lastName: {
+      type: DataTypes.STRING,
+      field: 'last_name',
+    },
+    addressId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'person_addresses',
+        key: 'id',
+      },
+      field: 'address_id',
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -16,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'updated_at',
     },
   }, {});
-  person.associate = function(models) {
+  person.associate = () => {
     // associations can be defined here
   };
   return person;

@@ -1,47 +1,47 @@
 [
   {
     "size": 0,
-    "product_name": "Margarita",
+    "product_name": "margarita",
     "price": 50
   },
   {
     "size": 1,
-    "product_name": "Margarita",
+    "product_name": "margarita",
     "price": 55
   },
   {
     "size": 2,
-    "product_name": "Margarita",
+    "product_name": "margarita",
     "price": 60
   },
   {
     "size": 0,
-    "product_name": "Marinara",
+    "product_name": "marinara",
     "price": 52
   },
   {
     "size": 1,
-    "product_name": "Marinara",
+    "product_name": "marinara",
     "price": 57
   },
   {
     "size": 2,
-    "product_name": "Marinara",
+    "product_name": "marinara",
     "price": 62
   },
   {
     "size": 0,
-    "product_name": "Salami",
+    "product_name": "salami",
     "price": 54
   },
   {
     "size": 1,
-    "product_name": "Salami",
+    "product_name": "salami",
     "price": 59
   },
   {
     "size": 2,
-    "product_name": "Salami",
+    "product_name": "salami",
     "price": 64
   }
 ]

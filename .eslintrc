@@ -8,10 +8,7 @@
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 7,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
+    "sourceType": "module"
   },
   "settings": {
     "import/resolver": {
@@ -20,32 +17,11 @@
           "utils": "./src/utils",
           "models": "./src/database/models",
           "configs": "./src/configs",
-          "middleware": "./src/routes/middleware"
+          "middleware": "./src/routes/middleware",
+          "api": "./src/api"
         }
       }
     }
-  },
-  "ecmaFeatures": {
-    "arrowFunctions": true,
-    "blockBindings": true,
-    "classes": true,
-    "defaultParameters": true,
-    "destructuring": true,
-    "forOf": true,
-    "generators": true,
-    "modules": true,
-    "objectLiteralComputedProperties": true,
-    "objectLiteralDuplicateProperties": true,
-    "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true,
-    "regexUFlag": true,
-    "regexYFlag": true,
-    "restParams": true,
-    "spread": true,
-    "superInFunctions": true,
-    "templateStrings": true,
-    "unicodeCodePointEscapes": true,
-    "globalReturn": true
   },
   "rules": {
     "comma-dangle": [

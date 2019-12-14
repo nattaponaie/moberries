@@ -4,7 +4,8 @@ services:
   moberries-api:
     build: .
     image: moberries/api
-    command: 'yarn dev'
+    command: >
+      bash -c 'yarn install && yarn db:migrate && yarn db:seed:all && yarn dev'
     volumes:
       - './src:/usr/src/app/src'
       - './.env:/usr/src/app/.env'
@@ -12,6 +13,13 @@ services:
       - "moberries-node_modules:/usr/src/app/node_modules"
     ports:
       - '9000:8080'
+    environment:
+      SERVER_OPEN_SWAGGER: "true"
+      DATABASE_HOST: "moberries-postgres"
+      DATABASE_NAME: "moberries"
+      DATABASE_USERNAME: "api"
+      DATABASE_PASSWORD: "api"
+      NODE_ENV: "development"
     depends_on: 
       - moberries-postgres
     networks:

@@ -1,6 +1,6 @@
 
 module.exports = (sequelize, DataTypes) => {
-  const Price = sequelize.define('prices', {
+  const price = sequelize.define('prices', {
     price: DataTypes.DECIMAL(10, 2),
     sizeId: {
       type: DataTypes.INTEGER,
@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       field: 'updated_at',
     },
   }, {});
-  Price.associate = function(models) {
+  price.associate = () => {
     // associations can be defined here
   };
-  return Price;
+  return price;
 };

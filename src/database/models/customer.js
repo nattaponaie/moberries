@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   customer.associate = function(models) {
     // associations can be defined here
+    customer.hasOne(models.persons);
   };
   return customer;
 };

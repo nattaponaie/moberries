@@ -5,7 +5,8 @@
       "configs": ["configs/index.js"],
       "utils/*": ["utils/*"],
       "models/*": ["database/models/*"],
-      "middleware/*": ["middleware/*"]
+      "middleware/*": ["middleware/*"],
+      "api/*": ["api/*"]
     }
   }
 }

@@ -18,19 +18,7 @@ module.exports = {
       },
       orderStatusId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'order_statuses',
-          key: 'id',
-        },
         field: 'order_status_id',
-      },
-      paymentId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'payments',
-          key: 'id',
-        },
-        field: 'payment_id',
       },
       createdAt: {
         allowNull: false,
@@ -44,7 +32,7 @@ module.exports = {
       },
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: queryInterface => {
     return queryInterface.dropTable('orders');
   },
 };
