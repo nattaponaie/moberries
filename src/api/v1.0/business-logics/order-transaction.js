@@ -1,8 +1,6 @@
 import { get } from 'lodash';
-import Sequelize from 'sequelize';
 import { orderTransaction } from '../domains';
 import { size, payment, order, price } from '../business-logics';
-import models from 'models';
 import { transformSequelizeModel } from 'utils/json';
 import { NotFoundError, RequiredError, CustomError } from 'utils/error';
 
