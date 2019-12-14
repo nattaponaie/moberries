@@ -38,4 +38,5 @@ export default {
   findStatusByName,
   transformStatusToName,
   findStatusById,
+  ERRORS_STATUS_NOT_FOUND,
 };

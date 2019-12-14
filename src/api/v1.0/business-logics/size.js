@@ -28,4 +28,6 @@ export default {
   findAll,
   findSizeByProductIdAndSize,
   findSizeByProductIdAndSizeId,
+  transformSize,
+  ERROR_PRODUCT_SIZE_DOES_NOT_EXIST,
 };
