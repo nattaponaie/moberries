@@ -24,10 +24,25 @@ const findSizeByProductIdAndSize = async ({ productId, productSize }) => {
   return await size.findSizeByProductIdAndSize({ productId, productSize: transformedSize });
 };
 
+const create = async ({
+  sizeName,
+  productId,
+}) => {
+  const transformedSize = transformSize(sizeName);
+  return await size.create({ size: transformedSize, productId });
+};
+
+const updatePriceIdById = async ({
+  id,
+  priceId,
+}) => await size.updatePriceIdById({ id, priceId });
+
 export default {
   findAll,
   findSizeByProductIdAndSize,
   findSizeByProductIdAndSizeId,
   transformSize,
   ERROR_PRODUCT_SIZE_DOES_NOT_EXIST,
+  create,
+  updatePriceIdById,
 };

@@ -36,8 +36,28 @@ const findSizeByProductIdAndSizeId = async ({
   });
 };
 
+const create = async ({
+  size,
+  productId,
+}) => await models.sizes.create({
+  size,
+  productId,
+});
+
+const updatePriceIdById = async ({
+  id,
+  priceId,
+}) => await models.sizes.update({ priceId }, {
+  where: {
+    id: id,
+  },
+  returning: true,
+});
+
 export default {
   findAll,
   findSizeByProductIdAndSize,
   findSizeByProductIdAndSizeId,
+  create,
+  updatePriceIdById,
 };
