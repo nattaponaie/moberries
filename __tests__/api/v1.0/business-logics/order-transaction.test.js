@@ -15,15 +15,6 @@ jest.mock('utils/json', () => ({
 
 jest.mock('api/v1.0/domains');
 
-jest.mock('models', () => ({
-  sequelize: {
-    transaction: jest.fn(() => ({
-      commit: jest.fn(() => true),
-      rollback: jest.fn(() => false),
-    })),
-  },
-}));
-
 describe('updateOrderTransaction', () => {
   it('should throw error when both productSize and quantity fields are not provided', async () => {
     const orderId = 17;
