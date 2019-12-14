@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'updated_at',
     },
   }, {});
-  price.associate = function(models) {
+  price.associate = () => {
     // associations can be defined here
   };
   return price;

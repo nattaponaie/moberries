@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'updated_at',
     },
   }, {});
-  person.associate = function(models) {
+  person.associate = () => {
     // associations can be defined here
   };
   return person;

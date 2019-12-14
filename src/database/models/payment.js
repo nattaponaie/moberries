@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'updated_at',
     },
   }, {});
-  payment.associate = function(models) {
+  payment.associate = () => {
     // associations can be defined here
   };
   return payment;
