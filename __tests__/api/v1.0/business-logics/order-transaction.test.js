@@ -64,6 +64,15 @@ describe('updateOrderTransaction', () => {
       },
     ];
 
+    const mockUpdatedOrderTransactionModel = {
+      id: orderTransactionId,
+      quantity,
+      orderId,
+      productId: 1,
+      sizeId: 4,
+      paymentId: 20,
+    };
+
     const mockSizeModel = {
       id: 1,
       price: {
@@ -75,29 +84,14 @@ describe('updateOrderTransaction', () => {
     domains.orderTransaction.findAllByOrderId = jest.fn(() => Promise.resolve(mockOrderTransactionModel));
     size.findSizeByProductIdAndSize = jest.fn(() => Promise.resolve(mockSizeModel));
     payment.calculatePrice = jest.fn();
-    domains.orderTransaction.updateTransaction = jest.fn(() => Promise.resolve());
+    domains.orderTransaction.updateTransaction = jest.fn(() => Promise.resolve(mockUpdatedOrderTransactionModel));
 
     size.findSizeByProductIdAndSizeId = jest.fn(() => mockSizeModel);
 
     payment.updateTotal = jest.fn(() => Promise.resolve());
 
     const result = await orderTransaction.updateOrderTransaction({ orderId, orderTransactionId, quantity, productSize });
-    expect(result[0]).toMatchObject(expect.objectContaining({
-      id: 18,
-      quantity: 20,
-      orderId,
-      productId: 1,
-      sizeId: 4,
-      paymentId: 20,
-    }));
-    expect(result[1]).toMatchObject(expect.objectContaining({
-      id: 19,
-      quantity: 21,
-      orderId,
-      productId: 2,
-      sizeId: 4,
-      paymentId: 20,
-    }));
+    expect(result).toMatchObject(mockUpdatedOrderTransactionModel);
 
     expect(order.isOrderUpdatable).toBeCalled();
     expect(size.findSizeByProductIdAndSize).toBeCalled();

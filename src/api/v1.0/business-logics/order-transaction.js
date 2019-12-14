@@ -40,8 +40,9 @@ const updateOrderTransaction = async ({
 
   let priceSum = 0;
   let paymentId;
+  let result = {};
   
-  const result = await Promise.all(orderTransactionResult.map(async (tran) => {
+  await Promise.all(orderTransactionResult.map(async (tran) => {
     const tranId = get(tran, ['id']);
     if (tranId === orderTransactionId) {
       paymentId = get(tran, 'paymentId');
@@ -49,14 +50,15 @@ const updateOrderTransaction = async ({
       const sizeResult = transformSequelizeModel(await size.findSizeByProductIdAndSize({ productId: tran.productId, productSize }));
       const sizeId = get(sizeResult, 'id');
       const productPrice = price.getProductPrice({ sizeResult });
-      priceSum = payment.calculatePrice({ x: priceSum, y: productPrice, quantity: tran.quantity });
+      priceSum = payment.calculatePrice({ x: priceSum, y: productPrice, quantity });
       
-      await orderTransaction.updateTransaction({ id: tran.id, quantity, sizeId });
-    } else {
-      const sizeResult = transformSequelizeModel(await size.findSizeByProductIdAndSizeId({ productId: tran.productId, sizeId: tran.sizeId }));
-      const productPrice = price.getProductPrice({ sizeResult });
-      priceSum = payment.calculatePrice({ x: priceSum, y: productPrice, quantity: tran.quantity });
+      result = transformSequelizeModel(await orderTransaction.updateTransaction({ id: tran.id, quantity, sizeId }));
+      return result;
     }
+    const sizeResult = transformSequelizeModel(await size.findSizeByProductIdAndSizeId({ productId: tran.productId, sizeId: tran.sizeId }));
+    const productPrice = price.getProductPrice({ sizeResult });
+    priceSum = payment.calculatePrice({ x: priceSum, y: productPrice, quantity: tran.quantity });
+    
     return tran;
   }));
 

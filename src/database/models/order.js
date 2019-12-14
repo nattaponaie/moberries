@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'order_status_id',
     },
+    paymentId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: 'payment_id',
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -29,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
   // associations can be defined here
     order.belongsTo(models.customers, { foreignKey: 'customer_id' } );
     order.belongsTo(models.order_statuses, { constraints: false });
+    order.belongsTo(models.payments, { foreignKey: 'payment_id' } );
   });
   return order;
 };
