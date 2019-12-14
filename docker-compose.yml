@@ -37,6 +37,16 @@ services:
       POSTGRES_DB: "moberries"
     networks:
       - moberries
+  unit-test:
+    build: .
+    image: moberries/api-test
+    command: yarn unit-test
+    volumes:
+      - './src:/usr/src/app/src'
+      - './.env:/usr/src/app/.env'
+      - './__tests__:/usr/src/app/__tests__'
+    networks:
+      - moberries
 volumes:
   moberries-postgres-db:
   moberries-node_modules:
