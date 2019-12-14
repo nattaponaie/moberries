@@ -17,6 +17,29 @@ docker-compose build moberries-api
 docker-compose up moberries-api
 ```
 
+## Project Structure
+```bash
+
+│── tests
+│── src                              # All source files
+│   ├── api                          # API stuffs
+│      ├── middleware                # Handler, Wrapper functions
+│      ├── v1.0                      # API version
+│         ├── business-logics        # Business logics
+│         ├── controllers            # Controllers
+│         ├── domains                # Database model functions
+│      ├── ...                       # etc.
+│   ├── configs                      # Environments, Database config
+│   ├── database                     # Database stuffs
+│      ├── fixtures                  # Seed data
+│      ├── migrations                # Sequelize migration files
+│      ├── models                    # Sequelize models
+│      ├── seeders                   # Sequelize seeders
+│   ├── utils                        # Reuseable function
+│   └── ...                          # etc.
+└── ...
+```
+
 ## Database
 
 A database will be running when moberries-api image is up.
@@ -34,6 +57,10 @@ DATABASE_NAME: "moberries"
 DATABASE_USERNAME: "api"
 DATABASE_PASSWORD: "api"
 ```
+
+*NOTE*
+
+Database migration and seeder are executed automatically when container is up.
 
 ## Database Schema
 
