@@ -12,13 +12,23 @@ const router = express.Router();
  * @swagger
  * /order-transactions:
  *   get:
- *     summary: "Find all order transaction information"
+ *     summary: "Find all order transaction information by order ID"
  *     consumes:
  *       - "application/json"
  *     produces:
  *       - "application/json"
  *     tags:
  *       - "Order Transaction"
+ *     parameters:
+ *     - name: "body"
+ *       in: "body"
+ *       description: "Order id to find"
+ *       required: true
+ *       type: "object"
+ *       properties:
+ *        orderId:
+ *         type: "integer"
+ *         format: "int64"
  *
  *     responses:
  *       200:
