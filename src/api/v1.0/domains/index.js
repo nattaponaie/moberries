@@ -7,6 +7,7 @@ import size from './size';
 import payment from './payment';
 import personAddress from './person-address';
 import person from './person';
+import price from './price';
 
 export {
   product,
@@ -18,4 +19,5 @@ export {
   payment,
   personAddress,
   person,
+  price,
 };
