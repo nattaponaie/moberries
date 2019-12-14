@@ -1,7 +1,7 @@
 import { get } from 'lodash';
 import Sequelize from 'sequelize';
 import { orderTransaction } from '../domains';
-import { size, payment, order } from '../business-logics';
+import { size, payment, order, price } from '../business-logics';
 import models from 'models';
 import { transformSequelizeModel } from 'utils/json';
 import { NotFoundError, RequiredError, CustomError } from 'utils/error';
@@ -56,13 +56,13 @@ const updateOrderTransaction = async ({
 
         const sizeResult = transformSequelizeModel(await size.findSizeByProductIdAndSize({ productId: tran.productId, productSize }));
         const sizeId = get(sizeResult, 'id');
-        const productPrice = get(sizeResult, ['price', 'price']);
+        const productPrice = price.getProductPrice({ sizeResult });
         priceSum = payment.calculatePrice({ x: priceSum, y: productPrice, quantity: tran.quantity });
       
         await orderTransaction.updateTransaction({ id: tran.id, quantity, sizeId, transaction });
       } else {
         const sizeResult = transformSequelizeModel(await size.findSizeByProductIdAndSizeId({ productId: tran.productId, sizeId: tran.sizeId }));
-        const productPrice = get(sizeResult, ['price', 'price']);
+        const productPrice = price.getProductPrice({ sizeResult });
         priceSum = payment.calculatePrice({ x: priceSum, y: productPrice, quantity: tran.quantity });
       }
       return tran;
