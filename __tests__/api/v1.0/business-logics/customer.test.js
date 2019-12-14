@@ -46,7 +46,7 @@ describe('create', () => {
     person.create = jest.fn(() => Promise.resolve(mockPersonModel));
     domains.customer.create = jest.fn(() => Promise.resolve(mockCustomerModel));
 
-    const result = await customer.create({ firstName, lastName, streetAddress });
+    await customer.create({ firstName, lastName, streetAddress });
     expect(personAddress.create).toBeCalled();
     expect(person.create).toBeCalled();
     expect(domains.customer.create).toBeCalled();
