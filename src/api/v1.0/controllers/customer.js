@@ -11,7 +11,7 @@ const resource = 'customer';
 
 /**
  * @swagger
- * /customer:
+ * /customers:
  *   post:
  *     tags:
  *     - "Customer"
