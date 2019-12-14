@@ -16,11 +16,10 @@ const updateOrderId = async ({ orderId, paymentId, transaction }) => await model
 const updateTotal = async ({
   total,
   paymentId,
-  transaction,
 }) => await models.payments.update({ total: parseFloat(total).toFixed(2) },
   { where: {
     id: paymentId,
-  }, transaction });
+  }, returning: true });
 
 export default {
   create,

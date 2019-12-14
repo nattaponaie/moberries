@@ -32,13 +32,13 @@ const updateTransaction = async ({
   quantity,
   sizeId,
   orderId,
-  transaction,
 }) => await models.order_transactions.update({ quantity, sizeId, orderId },
   {
     where: {
       id,
     },
-  }, { transaction });
+    returning: true,
+  });
 
 
 export default {
