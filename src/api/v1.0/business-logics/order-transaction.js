@@ -38,45 +38,34 @@ const updateOrderTransaction = async ({
     throw new CustomError(order.ERROR_ORDER_CANNOT_BE_UPDATED);
   }
 
-  const transaction = await models.sequelize.transaction({
-    autocommit: false,
-    isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED,
-    deferrable: Sequelize.Deferrable.SET_IMMEDIATE,
-  });
-  try {
-    const orderTransactionResult = transformSequelizeModel(await findAllByOrderId({ orderId }));
+  const orderTransactionResult = transformSequelizeModel(await findAllByOrderId({ orderId }));
 
-    let priceSum = 0;
-    let paymentId;
+  let priceSum = 0;
+  let paymentId;
   
-    const result = await Promise.all(orderTransactionResult.map(async (tran) => {
-      const tranId = get(tran, ['id']);
-      if (tranId === orderTransactionId) {
-        paymentId = get(tran, 'paymentId');
+  const result = await Promise.all(orderTransactionResult.map(async (tran) => {
+    const tranId = get(tran, ['id']);
+    if (tranId === orderTransactionId) {
+      paymentId = get(tran, 'paymentId');
 
-        const sizeResult = transformSequelizeModel(await size.findSizeByProductIdAndSize({ productId: tran.productId, productSize }));
-        const sizeId = get(sizeResult, 'id');
-        const productPrice = price.getProductPrice({ sizeResult });
-        priceSum = payment.calculatePrice({ x: priceSum, y: productPrice, quantity: tran.quantity });
+      const sizeResult = transformSequelizeModel(await size.findSizeByProductIdAndSize({ productId: tran.productId, productSize }));
+      const sizeId = get(sizeResult, 'id');
+      const productPrice = price.getProductPrice({ sizeResult });
+      priceSum = payment.calculatePrice({ x: priceSum, y: productPrice, quantity: tran.quantity });
       
-        await orderTransaction.updateTransaction({ id: tran.id, quantity, sizeId, transaction });
-      } else {
-        const sizeResult = transformSequelizeModel(await size.findSizeByProductIdAndSizeId({ productId: tran.productId, sizeId: tran.sizeId }));
-        const productPrice = price.getProductPrice({ sizeResult });
-        priceSum = payment.calculatePrice({ x: priceSum, y: productPrice, quantity: tran.quantity });
-      }
-      return tran;
-    }));
-
-    if (paymentId) {
-      await payment.updateTotal({ total: priceSum, paymentId, transaction });
+      await orderTransaction.updateTransaction({ id: tran.id, quantity, sizeId });
+    } else {
+      const sizeResult = transformSequelizeModel(await size.findSizeByProductIdAndSizeId({ productId: tran.productId, sizeId: tran.sizeId }));
+      const productPrice = price.getProductPrice({ sizeResult });
+      priceSum = payment.calculatePrice({ x: priceSum, y: productPrice, quantity: tran.quantity });
     }
-    transaction.commit();
-    return result;
-  } catch (err) {
-    transaction.rollback();
-    return err;
+    return tran;
+  }));
+
+  if (paymentId) {
+    await payment.updateTotal({ total: priceSum, paymentId });
   }
+  return result;
 };
 
 const createOrderTransaction = async ({
