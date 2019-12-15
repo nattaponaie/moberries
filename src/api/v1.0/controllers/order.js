@@ -181,15 +181,21 @@ router.post(
           name: Joi.string().required(),
           quantity: Joi.number().required(),
         })
-      ),
+      ).required(),
+      deliveryInfo: Joi.object().keys({
+        firstName: Joi.string().required(),
+        lastName: Joi.string().required(),
+        address: Joi.string().required(),
+      }).required(),
     }),
   }),
   asyncWrapper(async (req, res) => {
     const {
       product,
       customerId,
+      deliveryInfo,
     } = req.body;
-    const result = await order.createOrder({ productList: product, customerId });
+    const result = await order.createOrder({ productList: product, customerId, deliveryInfo });
     res.json(apiResponse({ resource, response: result }));
   })
 );

@@ -7,6 +7,8 @@ import {
   size,
   orderTransaction,
   price,
+  personAddress,
+  person,
 } from 'api/v1.0/business-logics';
 
 import {
@@ -30,28 +32,45 @@ describe('createOrder', () => {
   it('should create order successfully', async () => {
     const productList = [
       {
-        'name': 'margarita',
-        'size': 'small',
-        'quantity': '3',
+        name: 'margarita',
+        size: 'small',
+        quantity: '3',
       },
       {
-        'name': 'margarita',
-        'size': 'medium',
-        'quantity': '10',
+        name: 'margarita',
+        size: 'medium',
+        quantity: '10',
       },
       {
-        'name': 'marinara',
-        'size': 'medium',
-        'quantity': '3',
+        name: 'marinara',
+        size: 'medium',
+        quantity: '3',
       },
     ];
+    const deliveryInfo = {
+      firstName: 'too',
+      lastName: 'far',
+      address: '69/69 Bangkok Thailand',
+    };
     const orderId = 102;
     const orderStatusId = 0;
     const customerId = 99;
 
+    const mockPersonAddressModel = {
+      id: 1,
+      streetAddress: deliveryInfo.address,
+    };
+
+    const mockPersonModel = {
+      id: 1,
+      personAddressId: mockPersonAddressModel.id,
+    };
+
     customer.findCustomerById = jest.fn(() => Promise.resolve());
     payment.createPayment = jest.fn(() => Promise.resolve({ id: 100 }));
     orderStatus.findStatusByName = jest.fn(() => Promise.resolve({ id: 101 }));
+    personAddress.create = jest.fn(() => Promise.resolve(mockPersonAddressModel));
+    person.create = jest.fn(() => Promise.resolve(mockPersonModel));
     orderDomain.create = jest.fn(() => Promise.resolve({ id: orderId, customerId, orderStatusId: orderStatusId }));
     payment.updateOrderId = jest.fn(() => Promise.resolve());
     product.findProductByName = jest.fn(() => Promise.resolve({ id: 103 }));
@@ -60,7 +79,7 @@ describe('createOrder', () => {
     price.getProductPrice = jest.fn(() => 2000);
     payment.updateTotal = jest.fn(() => Promise.resolve());
 
-    const result = await order.createOrder({ productList, customerId });
+    const result = await order.createOrder({ productList, customerId, deliveryInfo });
 
     expect(customer.findCustomerById).toBeCalled();
     expect(payment.createPayment).toBeCalled();

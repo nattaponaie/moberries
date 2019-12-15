@@ -2,7 +2,17 @@ import { get, head } from 'lodash';
 import Sequelize from 'sequelize';
 import models from 'models';
 import { order } from 'api/v1.0/domains';
-import { customer, product, size, orderStatus, price, payment, orderTransaction } from 'api/v1.0/business-logics';
+import {
+  customer,
+  product,
+  size,
+  orderStatus,
+  price,
+  payment,
+  orderTransaction,
+  personAddress,
+  person,
+} from 'api/v1.0/business-logics';
 import { transformSequelizeModel } from 'utils/json';
 import { NotFoundError } from 'utils/error';
 
@@ -56,6 +66,7 @@ const isOrderUpdatable = async ({
 const createOrder = async ({
   productList,
   customerId,
+  deliveryInfo,
 }) => {
   const transaction = await models.sequelize.transaction({
     autocommit: false,
@@ -71,8 +82,17 @@ const createOrder = async ({
 
     const orderStatusResult = transformSequelizeModel(await orderStatus.findStatusByName({ status: 'new' }));
     const orderStatusId = get(orderStatusResult, 'id');
+
+    const streetAddress = get(deliveryInfo, 'address');
+    const personAddressResult = transformSequelizeModel(await personAddress.create({ streetAddress, transaction }));
+    const personAddressId = get(personAddressResult, 'id');
+
+    const firstName = get(deliveryInfo, 'firstName');
+    const lastName = get(deliveryInfo, 'lastName');
+    const personResult = transformSequelizeModel(await person.create({ firstName, lastName, addressId: personAddressId, transaction }));
+    const personId = get(personResult, 'id');
     
-    const orderResult = transformSequelizeModel(await order.create({ customerId, paymentId, orderStatusId, transaction }));
+    const orderResult = transformSequelizeModel(await order.create({ customerId, paymentId, orderStatusId, personId, transaction }));
     const orderId = get(orderResult, 'id');
 
     await payment.updateOrderId({ orderId, paymentId, transaction });
