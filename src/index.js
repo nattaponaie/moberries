@@ -17,7 +17,7 @@ app.use(cors({
   origin: (origin, callback) => {
     if (NODE_ENV !== 'development') {
       const { protocol, hostname } = new URL(origin);
-      if (protocol !== 'https:' || !hostname.endsWith('.easysunday.com')) {
+      if (protocol !== 'https:' || !hostname.endsWith('.moberries.com')) {
         logWarning('Malicious request denied', { origin });
         return callback(Error('CORS validation failed'), false);
       }
