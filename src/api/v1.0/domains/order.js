@@ -28,12 +28,15 @@ const create = async ({
   customerId,
   orderStatusId,
   paymentId,
+  personId,
   transaction,
 }) => await models.orders.create({
   customerId,
   orderStatusId,
+  personId,
   paymentId,
-}, { transaction });
+},
+{ transaction });
 
 const updateOrderStatusById = async ({
   orderId,
